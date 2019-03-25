@@ -12,21 +12,13 @@ module.exports.displayContactList = (req, res, next) =>{
         else {
            // console.log(contactList);
 
-            res.render('contacts/index', {
-                title: 'Contact List',
-                contactList: contactList,
-                displayName: req.user ? req.user.displayName : ""
-            });
-            
+           return res.json({success:true, msg: 'Contact list displayed successfully', contactList: contactList, user: req.user});
         }
     });
 }
 
 module.exports.displayAddPage = (req, res, next) => {
-    res.render('contacts/add', {
-        title: 'Add New Contact',
-        displayName: req.user ? req.user.displayName : ""
-    });
+    return res.json({success:true, msg: 'successfully displayed add page'});
 }
 
 module.exports.processAddPage = (req, res, next) => {
@@ -44,7 +36,7 @@ module.exports.processAddPage = (req, res, next) => {
         }
         else {
             // refresh the contact list
-            res.redirect('/contact-list');
+            res.json({success:true, msg: 'successfully added new contact'});
         }
     });
 }
@@ -60,11 +52,7 @@ module.exports.displayEditPage = (req, res, next) => {
         else
         {
             // show the edit view
-            res.render('contacts/edit', {
-                title: 'Edit Contact',
-                contact: contactObject,
-                displayName: req.user ? req.user.displayName : ""
-            });
+            res.json({success:true, msg: 'successfully displayed edit page',contact:contactObject});
         }
     });
 }
@@ -86,7 +74,7 @@ module.exports.processEditPage = (req, res, next) => {
         }
         else {
             // refresh the contact list
-            res.redirect('/contact-list');
+            res.json({success:true, msg: 'successfully edited contact page', contact:updatedContact});
         }
     })
 }
@@ -101,7 +89,7 @@ module.exports.performDelete = (req, res, next) => {
         }
         else {
             // refresh the contact list
-            res.redirect('/contact-list');
+            res.json({success:true, msg: 'successfully deleted contact'});
         }
     });
 }
